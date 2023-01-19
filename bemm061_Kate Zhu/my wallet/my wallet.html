@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>My wallet</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link href="styles.css" rel="stylesheet" type="text/css">
+    
+    <script 
+        type="text/javascript" 
+        src="https://unpkg.com/bsv@1.5.3/bsv.min.js">
+    </script>
+
+    <script 
+        type="text/javascript" 
+        src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js">
+    </script>
+
+    <script 
+        src="API_Fetch_Live_Info.js">
+    </script>
+    
+  </head>
+  <body>
+      
+      <div id="block1">
+           <h1>Private Key:</h1> 
+           <p id="privKey"> </p>
+      </div>
+      <div id="block2">
+           <h1>Public Key:</h1> 
+           <p id="pubKey"> </p>
+      </div>
+      <div id="block3" style="">
+           <h1>ddress:</h1> 
+           <p id="address"> </p>
+      </div>
+      <div id="block4">
+        <h1>QR code:</h1>
+        <p id="qrcode"></p>
+      </div>
+      <div id="block5">
+          <a href="my wallet.html">Wallet Homepage</a>
+          <a href="live_info.html">Live Info</a>
+      </div>
+      <div id="block6">
+          <p id="livedata"></p>
+          <h3>Current BSV Price</h3>
+          <p>
+            Price: <span id="prc"></span><br/>
+            Currency Unit: <span id="cur"></span><br/>
+          </p>
+      </div>
+
+    <script> 
+    var privKey = bsv.PrivateKey.fromRandom();
+    var pubKey = bsv.PublicKey.fromPrivateKey(privKey);
+    var address = bsv.Address.fromPublicKey(pubKey)
+    
+    var p = document.querySelector("#privKey");
+    p.innerHTML = privKey.toString();
+    
+    var y = document.querySelector("#pubKey");
+    y.innerHTML = pubKey.toString();
+    
+    var z = document.querySelector("#address");
+    z.innerHTML = address.toString();
+
+    var addressCode = 'bitcoinsv:' + address;
+    new QRCode(document.getElementById("qrcode"), addressCode);
+    </script>
+  </body>
+</html>
